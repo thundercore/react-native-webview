@@ -143,7 +143,7 @@ export declare type OnShouldStartLoadWithRequest = (event: WebViewNavigation) =>
 export interface CommonNativeWebViewProps extends ViewProps {
     cacheEnabled?: boolean;
     injectedJavaScript?: string;
-    injectedJavaScriptBeforeDocumentLoad?: string;
+    injectedJavaScriptBeforeLoad?: string;
     mediaPlaybackRequiresUserAction?: boolean;
     messagingEnabled: boolean;
     onLoadingError: (event: WebViewErrorEvent) => void;
@@ -481,7 +481,7 @@ export interface WebViewSharedProps extends ViewProps {
      * Set this to provide JavaScript that will be injected into the web page
      * prior to the view loading.
      */
-    injectedJavaScriptBeforeDocumentLoad?: string;
+    injectedJavaScriptBeforeLoad?: string;
     /**
      * Boolean value that determines whether a horizontal scroll indicator is
      * shown in the `WebView`. The default value is `true`.
