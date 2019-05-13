@@ -144,6 +144,7 @@ export interface CommonNativeWebViewProps extends ViewProps {
     cacheEnabled?: boolean;
     injectedJavaScript?: string;
     injectedJavaScriptBeforeLoad?: string;
+    injectedJavaScriptBeforeDocumentLoad?: string;
     mediaPlaybackRequiresUserAction?: boolean;
     messagingEnabled: boolean;
     onLoadingError: (event: WebViewErrorEvent) => void;
@@ -479,9 +480,14 @@ export interface WebViewSharedProps extends ViewProps {
     injectedJavaScript?: string;
     /**
      * Set this to provide JavaScript that will be injected into the web page
-     * prior to the view loading.
+     * prior to the view loading. ios
      */
     injectedJavaScriptBeforeLoad?: string;
+    /**
+     * Set this to provide JavaScript that will be injected into the web page
+     * prior to the view loading. andoird
+     */
+    injectedJavaScriptBeforeDocumentLoad?: string;
     /**
      * Boolean value that determines whether a horizontal scroll indicator is
      * shown in the `WebView`. The default value is `true`.
