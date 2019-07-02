@@ -30,6 +30,8 @@ This document lays out the current public properties and methods for the React N
 - [`mixedContentMode`](Reference.md#mixedcontentmode)
 - [`thirdPartyCookiesEnabled`](Reference.md#thirdpartycookiesenabled)
 - [`userAgent`](Reference.md#useragent)
+- [`applicationNameForUserAgent`](Reference.md#applicationNameForUserAgent)
+- [`allowsFullscreenVideo`](Reference.md#allowsfullscreenvideo)
 - [`allowsInlineMediaPlayback`](Reference.md#allowsinlinemediaplayback)
 - [`bounces`](Reference.md#bounces)
 - [`overScrollMode`](Reference.md#overscrollmode)
@@ -52,6 +54,7 @@ This document lays out the current public properties and methods for the React N
 - [`pagingEnabled`](Reference.md#pagingEnabled)
 - [`allowsLinkPreview`](Reference.md#allowsLinkPreview)
 - [`sharedCookiesEnabled`](Reference.md#sharedCookiesEnabled)
+- [`textZoom`](Reference.md#textZoom)
 
 ## Methods Index
 
@@ -113,6 +116,22 @@ Set this to provide JavaScript that will be injected into the web page when the 
 | string | No       |
 
 To learn more, read the [Communicating between JS and Native](Guide.md#communicating-between-js-and-native) guide.
+
+Example:
+
+Post message a JSON object of `window.location` to be handled by [`onMessage`](Reference.md#onmessage)
+
+```jsx
+const INJECTED_JAVASCRIPT = `(function() {
+    window.ReactNativeWebView.postMessage(JSON.stringify(window.location));
+})();`;
+
+<WebView
+  source={{ uri: 'https://facebook.github.io/react-native' }}
+  injectedJavaScript={INJECTED_JAVASCRIPT}
+  onMessage={this.onMessage}
+/>
+```
 
 ---
 
@@ -488,6 +507,7 @@ target
 canGoBack
 canGoForward
 lockIdentifier
+mainDocumentURL (iOS only)
 navigationType
 ```
 
@@ -598,6 +618,24 @@ Sets the user-agent for the `WebView`. This will only work for iOS if you are us
 | Type   | Required | Platform               |
 | ------ | -------- | ---------------------- |
 | string | No       | Android, iOS WKWebView |
+
+---
+
+### `applicationNameForUserAgent`
+
+Append to the existing user-agent. Available on iOS WKWebView only. Setting `userAgent` will override this.
+
+| Type   | Required | Platform      |
+| ------ | -------- | ------------- |
+| string | No       | iOS WKWebView |
+
+### `allowsFullscreenVideo`
+
+Boolean that determines whether videos are allowed to be played in fullscreen. The default value is `false`.
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
 
 ---
 
@@ -866,6 +904,22 @@ Set `true` if shared cookies from `[NSHTTPCookieStorage sharedHTTPCookieStorage]
 | Type    | Required | Platform |
 | ------- | -------- | -------- |
 | boolean | No       | iOS      |
+
+---
+
+### `textZoom`
+
+If the user has set a custom font size in the Android system, an undesirable scale of the site interface in WebView occurs.
+
+When setting the standard textZoom (100) parameter size, this undesirable effect disappears.
+
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| number | No       | Android  |
+
+Example:
+
+`<WebView textZoom={100} />`
 
 ## Methods
 
