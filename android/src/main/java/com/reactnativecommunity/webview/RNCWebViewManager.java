@@ -705,8 +705,8 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
     private OkHttpClient initOkHTTPClient() {
       OkHttpClient client = new OkHttpClient.Builder()
               .cookieJar(new RNCWebViewCookieJar())
-              .followRedirects(true)
-              .followSslRedirects(true)
+              .followRedirects(false)
+              .followSslRedirects(false)
               .build();
 
       return client;
@@ -774,7 +774,10 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
       String charset = headerParser.getCharset(contentType);
       String mimeType = headerParser.getMimeType(contentType);
 
-      return new WebResourceResponse(mimeType, charset, data);
+      WebResourceResponse webRes = new WebResourceResponse(mimeType, charset, data);
+      webRes.setStatusCodeAndReasonPhrase(response.code(), "" + response.code());
+
+      return webRes;
     }
 
     private String injectJavaScript(String body) {
@@ -1033,10 +1036,10 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
       }
     }
 
-    public void setInjectedJavaScriptBeforeLoad(@Nullable String script) {		
-      if (mRNCWebViewClient != null && script != null) {		
-        mRNCWebViewClient.setInjectedJavaScriptBeforeLoad(script);		
-      }		
+    public void setInjectedJavaScriptBeforeLoad(@Nullable String script) {
+      if (mRNCWebViewClient != null && script != null) {
+        mRNCWebViewClient.setInjectedJavaScriptBeforeLoad(script);
+      }
     }
 
     public void onMessage(String message) {
