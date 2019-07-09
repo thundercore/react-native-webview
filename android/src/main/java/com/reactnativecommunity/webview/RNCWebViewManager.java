@@ -715,11 +715,6 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
     @TargetApi(21)
     @Override
     public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-      // No javascript to inject.
-      if (injectedJavaScriptOnResponse == null) {
-        return null;
-      }
-
       if (!request.isForMainFrame() || !request.getMethod().equals("GET")) {
         return null;
       }
