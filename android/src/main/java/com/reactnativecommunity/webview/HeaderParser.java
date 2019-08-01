@@ -6,8 +6,8 @@ import okhttp3.Headers;
 import okhttp3.Response;
 
 public class HeaderParser {
-  public static final String DEFAULT_CHARSET = "text/html";
-  public static final String DEFAULT_MIME_TYPE = "utf-8";
+  public static final String DEFAULT_MIME_TYPE = "text/html";
+  public static final String DEFAULT_CHARSET = "utf-8";
 
   public static final Pattern MIME_TYPE_RE = Pattern.compile("^.*(?=;)");
   public static final Pattern CHARSET_RE = Pattern.compile("charset=([a-zA-Z0-9-]+)", Pattern.CASE_INSENSITIVE);
@@ -40,6 +40,6 @@ public class HeaderParser {
       return contentType.trim();
     }
 
-    return DEFAULT_CHARSET + "; charset=" + DEFAULT_MIME_TYPE;
+    return  DEFAULT_MIME_TYPE + "; charset=" + DEFAULT_CHARSET;
   }
 }
