@@ -725,9 +725,13 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
     @TargetApi(21)
     private WebResourceResponse interceptRequest(WebView webView, WebResourceRequest webRequest) {
       Request request = buildRequest(webRequest);
+      if (request == null) {
+        return null;
+      }
+
       String address = request.url().toString();
 
-      if (request == null || address.startsWith("data:")) {
+      if (address.startsWith("data:")) {
         return null;
       }
 
@@ -738,7 +742,9 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
         String injectedBody = injectJavaScript(body);
 
         return buildWebResponse(response, injectedBody);
-      } catch (Exception err) {}
+      } catch (Exception err) {
+         System.out.println("interceptRequest failed: " + err.toString());
+      }
 
       return null;
     }
@@ -756,7 +762,9 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
         }
 
         return requestBuilder.build();
-      } catch (Exception err) {}
+      } catch (Exception err) {
+         System.out.println("buildRequest failed: " + err.toString());
+      }
 
       return null;
     }
